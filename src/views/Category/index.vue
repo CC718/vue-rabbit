@@ -1,6 +1,5 @@
 <template>
-   <!-- 一级路由出口 -->
-   <router-view></router-view>
+   分类
 </template>
 
 <script setup lang="ts">
