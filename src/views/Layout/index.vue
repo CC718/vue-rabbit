@@ -1,10 +1,4 @@
-<template>
-   <LayoutFixed></LayoutFixed>
-   <LayoutNav />
-   <LayoutHeader />
-   <RouterView />
-   <LayoutFooter />
-</template>
+
 
 <script setup>
 import LayoutNav from './components/LayoutNav.vue'
@@ -19,4 +13,13 @@ const categoryStore = useCategoryStore()
 onMounted(() => categoryStore.getCategory())
 </script>
 
+<template>
+   <LayoutFixed />
+   <LayoutNav />
+   <LayoutHeader />
+   <!-- 添加key 破坏复用机制 强制销毁重建-->
+   <!-- <RouterView :key="$route.fullPath" /> -->
+   <RouterView />
+   <LayoutFooter />
+</template>
 <style scoped></style>
