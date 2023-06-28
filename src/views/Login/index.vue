@@ -1,17 +1,17 @@
 <script setup>
 import { ref } from 'vue';
-import { loginAPI } from '@/apis/user.js'
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user.js'
 
 //表单校验 (账户名+密码)
-
+const userStore = useUserStore()
 
 //  1.准备表单对象 
 const form = ref({
-   account: '',
-   password: '',
+   account: '12056258282',
+   password: 'hm#qd@23!',
    agree: true
 })
 //2.准备规则对象
@@ -21,7 +21,7 @@ const rules = {
    ],
    password: [
       { required: true, message: '密码不能为空', trigger: 'blur' },
-      { min: 6, max: 4, message: '密码长度为6-14个字符', trigger: 'blur' }
+      { min: 6, max: 14, message: '密码长度为6-14个字符', trigger: 'blur' }
    ],
    agree: [
       {
@@ -44,11 +44,11 @@ const formRef = ref(null)
 const router = useRouter()
 const doLogin = () => {
    const { account, password } = form.value
-   formRef.value.validator(async (valid) => {
+   formRef.value.validate(async (valid) => {
       //valid 所有项都通过校验为true
       if (valid) {
          // TODO LOGIN
-         await loginAPI({ account, password })
+         await userStore.getUserInfo({ account, password })
          // 1. 提示用户
          ElMessage({ type: 'success', message: '登录成功' })
          // 2. 跳转首页
