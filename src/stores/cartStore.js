@@ -29,19 +29,27 @@ export const useCartStore = defineStore('cart', () => {
       // 2.使用数组的过滤方法 -filter   
       // cartList.value = cartList.value.filter(item => skuId != item.id)
    }
+   //单选
+   const singleCheck = (skuId, selected) => {
+      //通过skuId 找到当前项 然后把它的selected修改
+      const item = cartList.value.find(item => item.skuId === skuId)
+      item.selected = selected
+
+   }
    //计算属性
    //1.总的数量 所有项的count之和
-
    const allCount = computed(() => cartList.value.reduce((a, c) => a + c.count, 0))
    //2.总价 所有项的count*price之和   
    const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
 
    return {
       cartList,
+      allCount,
+      allPrice,
       addCart,
       delCart,
-      allCount,
-      allPrice
+      singleCheck
+
    }
 },
    {
