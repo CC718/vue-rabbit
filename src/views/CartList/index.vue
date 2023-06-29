@@ -3,10 +3,13 @@ import { useCartStore } from '@/stores/cartStore.js'
 const cartStore = useCartStore()
 // const cartList = []
 // 单选
-const singleCheck = (i, selected) => {
-   cartStore.singleCheck(i.skuId, selected)
-   console.log(i, selected);
+const singleCheck = (i, $event) => {
+   cartStore.singleCheck(i.skuId, $event)
+   console.log(i, $event);
 
+}
+const allCheck = ($event) => {
+   cartStore.allCheck($event)
 }
 </script>
 
@@ -18,7 +21,7 @@ const singleCheck = (i, selected) => {
                <thead>
                   <tr>
                      <th width="120">
-                        <el-checkbox />
+                        <el-checkbox :model-value="cartStore.isAll" @change="allCheck" />
                      </th>
                      <th width="400">商品信息</th>
                      <th width="220">单价</th>
